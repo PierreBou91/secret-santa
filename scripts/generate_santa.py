@@ -91,11 +91,14 @@ def assign_secret_santas(participants: list[str]) -> dict[str, str]:
             return assignments
 
 
-def generate_json():
+def generate_json(secret_mode: bool = False):
     """Génère le fichier JSON avec toutes les assignations."""
     
     print("🎅 Génération des assignations Secret Santa...")
     print(f"   Participants : {', '.join(PARTICIPANTS)}")
+    
+    if secret_mode:
+        print("\n🤫 MODE SECRET ACTIVÉ - Les assignations ne seront PAS affichées !")
     
     # Assigner les Secret Santas
     assignments = assign_secret_santas(PARTICIPANTS)
@@ -145,19 +148,63 @@ def generate_json():
         json.dump(data, f, ensure_ascii=False, indent=2)
     
     print(f"\n✅ Fichier généré : {output_file}")
-    print("\n📋 Résumé des assignations :")
-    print("-" * 40)
     
-    for p in participants_data:
-        print(f"   {p['realName']:12} → offre à → {p['giftee']}")
-        print(f"      Nom de code : {p['codename']}")
-        print(f"      Mot de passe : {p['password']}")
-        print()
+    # Générer le fichier des identifiants (sans révéler les assignations)
+    credentials_file = output_dir / "credentials.txt"
+    with open(credentials_file, "w", encoding="utf-8") as f:
+        f.write("🎅 IDENTIFIANTS SECRET SANTA 🎅\n")
+        f.write("=" * 40 + "\n\n")
+        f.write("Envoie à chaque personne ses identifiants en privé !\n\n")
+        for p in participants_data:
+            f.write(f"👤 {p['realName']}\n")
+            f.write(f"   Nom de code : {p['codename']}\n")
+            f.write(f"   Mot de passe : {p['password']}\n")
+            f.write("\n")
     
-    print("🎁 Joyeuses fêtes !")
+    print(f"📝 Fichier identifiants : {credentials_file}")
+    
+    if secret_mode:
+        # Mode secret : afficher seulement les identifiants, pas les assignations
+        print("\n📋 Identifiants à distribuer (assignations cachées) :")
+        print("-" * 40)
+        for p in participants_data:
+            print(f"   👤 {p['realName']}")
+            print(f"      Nom de code : {p['codename']}")
+            print(f"      Mot de passe : {p['password']}")
+            print()
+        print("🎁 Les assignations restent secrètes, même pour toi !")
+        print("   Consulte le site avec tes propres identifiants pour découvrir qui tu gâtes 🎄")
+    else:
+        # Mode normal : tout afficher
+        print("\n📋 Résumé des assignations :")
+        print("-" * 40)
+        for p in participants_data:
+            print(f"   {p['realName']:12} → offre à → {p['giftee']}")
+            print(f"      Nom de code : {p['codename']}")
+            print(f"      Mot de passe : {p['password']}")
+            print()
+        print("🎁 Joyeuses fêtes !")
     
     return data
 
 
 if __name__ == "__main__":
-    generate_json()
+    import sys
+    
+    secret_mode = "--secret" in sys.argv or "-s" in sys.argv
+    
+    if "--help" in sys.argv or "-h" in sys.argv:
+        print("🎅 Générateur de Secret Santa")
+        print()
+        print("Usage: python generate_santa.py [OPTIONS]")
+        print()
+        print("Options:")
+        print("  --secret, -s    Mode secret : génère sans révéler les assignations")
+        print("                  (pour que l'organisateur puisse aussi participer)")
+        print("  --help, -h      Affiche cette aide")
+        print()
+        print("Exemple:")
+        print("  python generate_santa.py --secret")
+    else:
+        generate_json(secret_mode=secret_mode)
+

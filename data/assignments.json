@@ -5,53 +5,60 @@
   },
   "participants": [
     {
-      "codename": "CheminéeEnchanté52",
-      "password": "sapin57",
-      "realName": "Chloé",
-      "giftee": "David",
-      "funMessage": "🎁 Mission top secrète : trouver le cadeau parfait pour"
+      "codename": "BonhommeSecret80",
+      "password": "hohoho59",
+      "realName": "Anna",
+      "giftee": "Ulysse",
+      "funMessage": "🎄 Le destin a parlé ! Tu dois gâter"
     },
     {
-      "codename": "BonhommeEnchanté61",
-      "password": "lutin9",
-      "realName": "David",
-      "giftee": "Baptiste",
+      "codename": "BouleMagique39",
+      "password": "neige32",
+      "realName": "Ulysse",
+      "giftee": "Gautier",
       "funMessage": "⭐ Les étoiles se sont alignées ! Tu offres à"
     },
     {
-      "codename": "AgentMystère29",
-      "password": "etoile49",
-      "realName": "Baptiste",
-      "giftee": "Alice",
-      "funMessage": "❄️ Sous le sceau du secret, tu dois choyer"
+      "codename": "FloconJoyeux36",
+      "password": "renne4",
+      "realName": "Gautier",
+      "giftee": "Margaux",
+      "funMessage": "🎄 Le destin a parlé ! Tu dois gâter"
     },
     {
-      "codename": "RenneDoré88",
-      "password": "etoile1",
-      "realName": "Alice",
-      "giftee": "Emma",
+      "codename": "LutinMystère32",
+      "password": "hohoho98",
+      "realName": "Margaux",
+      "giftee": "Fanny",
       "funMessage": "🦌 Rudolf te confie une mission : faire plaisir à"
     },
     {
-      "codename": "RenneNinja58",
-      "password": "bonbon35",
-      "realName": "Emma",
-      "giftee": "Félix",
-      "funMessage": "❄️ Sous le sceau du secret, tu dois choyer"
+      "codename": "AgentMystère56",
+      "password": "reveillon64",
+      "realName": "Fanny",
+      "giftee": "Pierre",
+      "funMessage": "🔔 Ding dong ! C'est l'heure de trouver un cadeau pour"
     },
     {
-      "codename": "RenneSecret34",
-      "password": "sapin43",
-      "realName": "Félix",
-      "giftee": "Gabrielle",
-      "funMessage": "🦌 Rudolf te confie une mission : faire plaisir à"
-    },
-    {
-      "codename": "GuirlandeGivré87",
-      "password": "buche62",
-      "realName": "Gabrielle",
-      "giftee": "Chloé",
+      "codename": "LutinDoré40",
+      "password": "traineau79",
+      "realName": "Pierre",
+      "giftee": "Elzéar",
       "funMessage": "🎅 Ho ho ho ! Le Père Noël compte sur toi pour"
+    },
+    {
+      "codename": "TraineauJoyeux84",
+      "password": "buche81",
+      "realName": "Elzéar",
+      "giftee": "Olivia",
+      "funMessage": "🎁 Mission top secrète : trouver le cadeau parfait pour"
+    },
+    {
+      "codename": "AgentSecret21",
+      "password": "lutin87",
+      "realName": "Olivia",
+      "giftee": "Anna",
+      "funMessage": "🎄 Le destin a parlé ! Tu dois gâter"
     }
   ]
 }
