@@ -1,0 +1,57 @@
+{
+  "event": {
+    "name": "Secret Santa des Cousins 🎄",
+    "budget": "10 à 20€"
+  },
+  "participants": [
+    {
+      "codename": "CheminéeEnchanté52",
+      "password": "sapin57",
+      "realName": "Chloé",
+      "giftee": "David",
+      "funMessage": "🎁 Mission top secrète : trouver le cadeau parfait pour"
+    },
+    {
+      "codename": "BonhommeEnchanté61",
+      "password": "lutin9",
+      "realName": "David",
+      "giftee": "Baptiste",
+      "funMessage": "⭐ Les étoiles se sont alignées ! Tu offres à"
+    },
+    {
+      "codename": "AgentMystère29",
+      "password": "etoile49",
+      "realName": "Baptiste",
+      "giftee": "Alice",
+      "funMessage": "❄️ Sous le sceau du secret, tu dois choyer"
+    },
+    {
+      "codename": "RenneDoré88",
+      "password": "etoile1",
+      "realName": "Alice",
+      "giftee": "Emma",
+      "funMessage": "🦌 Rudolf te confie une mission : faire plaisir à"
+    },
+    {
+      "codename": "RenneNinja58",
+      "password": "bonbon35",
+      "realName": "Emma",
+      "giftee": "Félix",
+      "funMessage": "❄️ Sous le sceau du secret, tu dois choyer"
+    },
+    {
+      "codename": "RenneSecret34",
+      "password": "sapin43",
+      "realName": "Félix",
+      "giftee": "Gabrielle",
+      "funMessage": "🦌 Rudolf te confie une mission : faire plaisir à"
+    },
+    {
+      "codename": "GuirlandeGivré87",
+      "password": "buche62",
+      "realName": "Gabrielle",
+      "giftee": "Chloé",
+      "funMessage": "🎅 Ho ho ho ! Le Père Noël compte sur toi pour"
+    }
+  ]
+}

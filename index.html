@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎅 QG Secret Santa - Mission Top Secrète</title>
+    <meta name="description" content="Découvrez votre mission Secret Santa top secrète !">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎅</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Snowflakes container -->
+    <div id="snow-container" aria-hidden="true"></div>
+    
+    <!-- Confetti container -->
+    <div id="confetti-container" aria-hidden="true"></div>
+    
+    <!-- Audio toggle -->
+    <button id="music-toggle" class="music-btn" aria-label="Activer/Désactiver la musique">
+        🔇
+    </button>
+    <audio id="jingle" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" type="audio/mpeg">
+    </audio>
+
+    <main>
+        <!-- Login Section -->
+        <section id="login-section" class="card glass-card">
+            <div class="badge">TOP SECRET</div>
+            <h1 class="title">
+                <span class="emoji-bounce">🎅</span>
+                QG Secret Santa
+                <span class="emoji-bounce">🎄</span>
+            </h1>
+            <p class="subtitle">Mission des Cousins</p>
+            
+            <div class="decorative-line"></div>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="codename">🕵️ Nom de Code</label>
+                    <input 
+                        type="text" 
+                        id="codename" 
+                        name="codename" 
+                        placeholder="Ex: AgentMystère42"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">🔐 Mot de Passe Secret</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <span>🎁 Révéler Ma Mission</span>
+                </button>
+            </form>
+            
+            <p id="error-message" class="error-message hidden"></p>
+            
+            <div class="budget-info">
+                <span>💰 Budget suggéré : <strong id="budget-display">10 à 20€</strong></span>
+            </div>
+        </section>
+
+        <!-- Reveal Section (hidden initially) -->
+        <section id="reveal-section" class="card glass-card hidden">
+            <div class="badge success">MISSION ACCEPTÉE</div>
+            
+            <h2 class="reveal-greeting">
+                Bienvenue, <span id="agent-name">Agent</span> !
+            </h2>
+            
+            <div class="mission-container">
+                <div class="mission-label">🎯 VOTRE MISSION</div>
+                <p id="fun-message" class="fun-message"></p>
+                
+                <div class="giftee-reveal">
+                    <div class="gift-box" id="gift-box">
+                        🎁
+                    </div>
+                    <h3 id="giftee-name" class="giftee-name"></h3>
+                </div>
+            </div>
+            
+            <p class="mission-footer">
+                Cette information s'autodétruira... jamais ! 
+                <br>Mais gardez-la secrète quand même 🤫
+            </p>
+            
+            <button id="logout-btn" class="btn btn-secondary">
+                🔙 Retour à l'Accueil
+            </button>
+        </section>
+
+        <!-- Admin Section (hidden, Easter egg) -->
+        <section id="admin-section" class="card glass-card hidden">
+            <div class="badge admin">MODE ADMIN</div>
+            <h2>🎅 Vue du Père Noël</h2>
+            <div id="admin-list" class="admin-list"></div>
+            <button id="admin-logout-btn" class="btn btn-secondary">
+                🔙 Retour
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Fait avec ❤️ et beaucoup de chocolat chaud 🍫</p>
+        <p class="hint">Psst... essayez le code Konami 🎮</p>
+    </footer>
+
+    <!-- Santa Dance Easter Egg -->
+    <div id="santa-dance" class="santa-dance hidden">
+        🎅💃🕺🎅
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
