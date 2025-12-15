@@ -12,23 +12,30 @@ Un site web festif et hilarant pour organiser votre Secret Santa en famille !
 
 ## 🚀 Installation
 
-### 1. Générer les assignations
+### 1. Configurer les participants
 
-Modifiez la liste des participants dans `scripts/generate_santa.py` :
+Éditez le fichier `config.yaml` à la racine du projet :
 
-```python
-PARTICIPANTS = [
-    "Prénom1",
-    "Prénom2",
-    # etc.
-]
+```yaml
+participants:
+  - Prénom1
+  - Prénom2
+  # etc.
+
+# Paires interdites (optionnel) - aucun des deux ne peut offrir à l'autre
+exceptions:
+  - [Prénom1, Prénom2]  # exemple: couple ou fratrie
 ```
 
-Puis exécutez :
+### 2. Générer les assignations
 
 ```bash
+pip install pyyaml  # si pas déjà installé
 python scripts/generate_santa.py
 ```
+
+Options :
+- `--secret` ou `-s` : Mode secret (l'organisateur ne voit pas les assignations)
 
 ### 2. Récupérer les identifiants
 

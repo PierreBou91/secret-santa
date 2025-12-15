@@ -6,102 +6,158 @@ Crée les assignations aléatoires et génère le fichier JSON pour le site web.
 
 import json
 import random
-import os
 from pathlib import Path
 
-# ============================================
-# 🎄 CONFIGURATION - MODIFIER ICI 🎄
-# ============================================
-
-# Liste des participants (remplacez par les vrais noms!)
-PARTICIPANTS = [
-    "Pierre",
-    "Gautier",
-    "Olivia",
-    "Fanny",
-    "Anna",
-    "Elzéar",
-    "Margaux",
-    "Ulysse",
-]
-
-# Budget à afficher
-BUDGET = "10 à 20€"
-
-# Préfixes et suffixes rigolos pour les noms de code
-PREFIXES = [
-    "Agent", "Lutin", "Renne", "Bonhomme", "Flocon", 
-    "Guirlande", "Boule", "Étoile", "Traineau", "Cheminée"
-]
-
-SUFFIXES = [
-    "Mystère", "Ninja", "Secret", "Festif", "Givré",
-    "Enchanté", "Magique", "Doré", "Scintillant", "Joyeux"
-]
-
-# Mots de passe rigolos (thème Noël)
-PASSWORDS = [
-    "hohoho", "renne", "sapin", "guirlande", "chocolat",
-    "buche", "cadeau", "neige", "etoile", "reveillon",
-    "bonbon", "lutin", "traineau", "chaussette", "houx"
-]
-
-# Messages fun pour la révélation
-FUN_MESSAGES = [
-    "🎁 Mission top secrète : trouver le cadeau parfait pour",
-    "🎄 Le destin a parlé ! Tu dois gâter",
-    "🦌 Rudolf te confie une mission : faire plaisir à",
-    "⭐ Les étoiles se sont alignées ! Tu offres à",
-    "🎅 Ho ho ho ! Le Père Noël compte sur toi pour",
-    "❄️ Sous le sceau du secret, tu dois choyer",
-    "🔔 Ding dong ! C'est l'heure de trouver un cadeau pour",
-]
+try:
+    import yaml
+except ImportError:
+    print("❌ Le module PyYAML est requis. Installez-le avec: pip install pyyaml")
+    exit(1)
 
 
-def generate_codename() -> str:
-    """Génère un nom de code rigolo."""
-    prefix = random.choice(PREFIXES)
-    suffix = random.choice(SUFFIXES)
+def load_config() -> dict:
+    """Charge la configuration depuis config.yaml."""
+    config_path = Path(__file__).parent.parent / "config.yaml"
+    
+    if not config_path.exists():
+        print(f"❌ Fichier de configuration introuvable: {config_path}")
+        print("   Créez un fichier config.yaml à la racine du projet.")
+        exit(1)
+    
+    with open(config_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def generate_codename(config: dict) -> str:
+    """Génère un nom de code avec accord grammatical français."""
+    prefixes = config["codenames"]["prefixes"]
+    suffixes = config["codenames"]["suffixes"]
+    
+    # Choisir un préfixe aléatoire: [mot, genre]
+    prefix_word, gender = random.choice(prefixes)
+    
+    # Choisir un suffixe et accorder selon le genre: [masculin, féminin]
+    suffix_forms = random.choice(suffixes)
+    suffix_word = suffix_forms[0] if gender == "m" else suffix_forms[1]
+    
     number = random.randint(10, 99)
-    return f"{prefix}{suffix}{number}"
+    return f"{prefix_word}{suffix_word}{number}"
 
 
-def generate_password() -> str:
+def generate_password(config: dict) -> str:
     """Génère un mot de passe thématique."""
-    return random.choice(PASSWORDS) + str(random.randint(1, 99))
+    passwords = config.get("passwords", ["secret"])
+    return random.choice(passwords) + str(random.randint(1, 99))
 
 
-def assign_secret_santas(participants: list[str]) -> dict[str, str]:
+def assign_secret_santas(participants: list[str], exceptions: list[list[str]]) -> dict[str, str]:
     """
     Assigne aléatoirement un Secret Santa à chaque participant.
-    Garantit que personne ne s'offre à soi-même.
+    Garantit que:
+    - Personne ne s'offre à soi-même
+    - Les paires d'exceptions ne sont pas assignées l'une à l'autre
     """
-    while True:
+    # Convertir les exceptions en set de tuples pour recherche rapide
+    forbidden_pairs = set()
+    for exc in exceptions:
+        if len(exc) == 2:
+            forbidden_pairs.add((exc[0], exc[1]))
+            forbidden_pairs.add((exc[1], exc[0]))
+    
+    max_attempts = 1000
+    for attempt in range(max_attempts):
         shuffled = participants.copy()
         random.shuffle(shuffled)
         
         # Décalage simple : chaque personne offre à la suivante
         assignments = {}
+        valid = True
+        
         for i, giver in enumerate(shuffled):
             receiver = shuffled[(i + 1) % len(shuffled)]
+            
+            # Vérifier les contraintes
+            if giver == receiver:
+                valid = False
+                break
+            if (giver, receiver) in forbidden_pairs:
+                valid = False
+                break
+            
             assignments[giver] = receiver
         
-        # Vérifie que personne ne s'offre à soi-même (ne devrait jamais arriver avec le décalage)
-        if all(giver != receiver for giver, receiver in assignments.items()):
+        if valid:
             return assignments
+    
+    # Si on n'a pas trouvé de solution après max_attempts, 
+    # utiliser un algorithme plus sophistiqué
+    print("⚠️  Algorithme simple échoué, tentative avec backtracking...")
+    return assign_with_backtracking(participants, forbidden_pairs)
 
 
-def generate_json(secret_mode: bool = False):
+def assign_with_backtracking(participants: list[str], forbidden_pairs: set) -> dict[str, str]:
+    """
+    Algorithme de backtracking pour les cas difficiles avec beaucoup d'exceptions.
+    """
+    n = len(participants)
+    assignments = {}
+    available_receivers = set(participants)
+    
+    def backtrack(index: int) -> bool:
+        if index == n:
+            # Vérifier que le dernier peut donner au premier (cycle complet)
+            return True
+        
+        giver = participants[index]
+        candidates = list(available_receivers)
+        random.shuffle(candidates)
+        
+        for receiver in candidates:
+            if receiver == giver:
+                continue
+            if (giver, receiver) in forbidden_pairs:
+                continue
+            
+            assignments[giver] = receiver
+            available_receivers.remove(receiver)
+            
+            if backtrack(index + 1):
+                return True
+            
+            # Backtrack
+            del assignments[giver]
+            available_receivers.add(receiver)
+        
+        return False
+    
+    random.shuffle(participants)
+    if backtrack(0):
+        return assignments
+    else:
+        print("❌ Impossible de trouver une assignation valide avec les exceptions données.")
+        print("   Vérifiez que les exceptions ne rendent pas l'assignation impossible.")
+        exit(1)
+
+
+def generate_json(config: dict, secret_mode: bool = False):
     """Génère le fichier JSON avec toutes les assignations."""
     
+    participants = config["participants"]
+    exceptions = config.get("exceptions", [])
+    event = config.get("event", {"name": "Secret Santa 🎄", "budget": "20€"})
+    fun_messages = config.get("fun_messages", ["🎁 Tu offres à"])
+    
     print("🎅 Génération des assignations Secret Santa...")
-    print(f"   Participants : {', '.join(PARTICIPANTS)}")
+    print(f"   Participants : {', '.join(participants)}")
+    
+    if exceptions:
+        print(f"   Exceptions : {len(exceptions)} paire(s) interdite(s)")
     
     if secret_mode:
         print("\n🤫 MODE SECRET ACTIVÉ - Les assignations ne seront PAS affichées !")
     
     # Assigner les Secret Santas
-    assignments = assign_secret_santas(PARTICIPANTS)
+    assignments = assign_secret_santas(participants, exceptions)
     
     # Créer les données pour chaque participant
     participants_data = []
@@ -110,15 +166,15 @@ def generate_json(secret_mode: bool = False):
     
     for name, giftee in assignments.items():
         # Générer un nom de code unique
-        codename = generate_codename()
+        codename = generate_codename(config)
         while codename in used_codenames:
-            codename = generate_codename()
+            codename = generate_codename(config)
         used_codenames.add(codename)
         
         # Générer un mot de passe unique
-        password = generate_password()
+        password = generate_password(config)
         while password in used_passwords:
-            password = generate_password()
+            password = generate_password(config)
         used_passwords.add(password)
         
         participants_data.append({
@@ -126,15 +182,12 @@ def generate_json(secret_mode: bool = False):
             "password": password,
             "realName": name,
             "giftee": giftee,
-            "funMessage": random.choice(FUN_MESSAGES)
+            "funMessage": random.choice(fun_messages)
         })
     
     # Structure finale
     data = {
-        "event": {
-            "name": "Secret Santa des Cousins 🎄",
-            "budget": BUDGET
-        },
+        "event": event,
         "participants": participants_data
     }
     
@@ -203,8 +256,14 @@ if __name__ == "__main__":
         print("                  (pour que l'organisateur puisse aussi participer)")
         print("  --help, -h      Affiche cette aide")
         print()
+        print("Configuration:")
+        print("  Éditez le fichier config.yaml à la racine du projet pour:")
+        print("  - Modifier la liste des participants")
+        print("  - Ajouter des exceptions (paires interdites)")
+        print("  - Personnaliser les noms de code et mots de passe")
+        print()
         print("Exemple:")
         print("  python generate_santa.py --secret")
     else:
-        generate_json(secret_mode=secret_mode)
-
+        config = load_config()
+        generate_json(config, secret_mode=secret_mode)

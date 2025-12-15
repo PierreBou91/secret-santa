@@ -1,0 +1,83 @@
+# 🎅 Secret Santa Configuration
+# ================================
+# Edit this file to customize your Secret Santa!
+
+event:
+  name: "Secret Santa des Cousins 🎄"
+  budget: "10 à 20€"
+
+# List of participants
+participants:
+  - Pierre
+  - Gautier
+  - Olivia
+  - Fanny
+  - Anna
+  - Elzéar
+  - Margaux
+  - Ulysse
+  - Olivier
+  - Dei
+
+# Exception rules: pairs that cannot be assigned to each other
+# Example: [[Pierre, Olivia], [Gautier, Fanny]]
+# Each pair means neither person can give to or receive from the other
+exceptions: [
+  [Gautier, Dei]
+]
+
+# Messages fun pour la révélation
+fun_messages:
+  - "🎁 Mission top secrète : trouver le cadeau parfait pour"
+  - "🎄 Le destin a parlé ! Tu dois gâter"
+  - "🦌 Rudolf te confie une mission : faire plaisir à"
+  - "⭐ Les étoiles se sont alignées ! Tu offres à"
+  - "🎅 Ho ho ho ! Le Père Noël compte sur toi pour"
+  - "❄️ Sous le sceau du secret, tu dois choyer"
+  - "🔔 Ding dong ! C'est l'heure de trouver un cadeau pour"
+
+# Mots de passe possibles (un nombre sera ajouté)
+passwords:
+  - hohoho
+  - renne
+  - sapin
+  - guirlande
+  - chocolat
+  - buche
+  - cadeau
+  - neige
+  - etoile
+  - reveillon
+  - bonbon
+  - lutin
+  - traineau
+  - chaussette
+  - houx
+
+# Noms de code avec accord grammatical français
+# Format: [mot, genre] où genre = "m" (masculin) ou "f" (féminin)
+codenames:
+  prefixes:
+    - [Agent, m]
+    - [Lutin, m]
+    - [Renne, m]
+    - [Bonhomme, m]
+    - [Flocon, m]
+    - [Traineau, m]
+    - [Guirlande, f]
+    - [Boule, f]
+    - [Étoile, f]
+    - [Cheminée, f]
+  
+  # Suffixes avec les deux formes: [masculin, féminin]
+  suffixes:
+    - [Mystère, Mystère]       # invariable
+    - [Ninja, Ninja]           # invariable
+    - [Secret, Secrète]
+    - [Festif, Festive]
+    - [Givré, Givrée]
+    - [Enchanté, Enchantée]
+    - [Magique, Magique]       # invariable
+    - [Doré, Dorée]
+    - [Scintillant, Scintillante]
+    - [Joyeux, Joyeuse]
