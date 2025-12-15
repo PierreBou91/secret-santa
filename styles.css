@@ -8,7 +8,7 @@
     --bg-gradient: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
     --card-bg: rgba(255, 255, 255, 0.05);
     --card-border: rgba(255, 255, 255, 0.1);
-    
+
     /* Couleurs festives */
     --red-primary: #e63946;
     --red-glow: rgba(230, 57, 70, 0.4);
@@ -17,15 +17,15 @@
     --gold-primary: #f4a261;
     --gold-glow: rgba(244, 162, 97, 0.4);
     --white-snow: #f8f9fa;
-    
+
     /* Typographie */
     --font-main: 'Outfit', sans-serif;
     --font-fancy: 'Pacifico', cursive;
-    
+
     /* Ombres */
     --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
     --shadow-glow: 0 0 40px var(--red-glow);
-    
+
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -85,6 +85,7 @@ body {
         transform: translateY(-20px) rotate(0deg);
         opacity: 1;
     }
+
     100% {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0.3;
@@ -118,6 +119,7 @@ body {
         transform: translateY(-100px) rotate(0deg);
         opacity: 1;
     }
+
     100% {
         transform: translateY(100vh) rotate(720deg);
         opacity: 0;
@@ -154,8 +156,15 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 /* ============================================
@@ -178,7 +187,7 @@ main {
 
 .card {
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
     padding: 40px;
     position: relative;
 }
@@ -248,8 +257,15 @@ main {
 }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .subtitle {
@@ -385,9 +401,19 @@ main {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
 }
 
 /* ============================================
@@ -467,8 +493,15 @@ main {
 }
 
 @keyframes gift-bounce {
-    0%, 100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-15px) rotate(5deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
 }
 
 .giftee-name {
@@ -481,8 +514,15 @@ main {
 }
 
 @keyframes glow-pulse {
-    0%, 100% { text-shadow: 0 0 20px var(--gold-glow); }
-    50% { text-shadow: 0 0 40px var(--gold-glow), 0 0 60px var(--gold-glow); }
+
+    0%,
+    100% {
+        text-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    50% {
+        text-shadow: 0 0 40px var(--gold-glow), 0 0 60px var(--gold-glow);
+    }
 }
 
 .mission-footer {
@@ -543,10 +583,23 @@ main {
 }
 
 @keyframes dance {
-    0%, 100% { transform: translate(-50%, -50%) rotate(-10deg) scale(1); }
-    25% { transform: translate(-50%, -50%) rotate(10deg) scale(1.1); }
-    50% { transform: translate(-50%, -50%) rotate(-10deg) scale(1); }
-    75% { transform: translate(-50%, -50%) rotate(10deg) scale(1.1); }
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(-10deg) scale(1);
+    }
+
+    25% {
+        transform: translate(-50%, -50%) rotate(10deg) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(-10deg) scale(1);
+    }
+
+    75% {
+        transform: translate(-50%, -50%) rotate(10deg) scale(1.1);
+    }
 }
 
 /* ============================================
@@ -584,19 +637,19 @@ footer .hint {
     .card {
         padding: 30px 20px;
     }
-    
+
     .title {
         font-size: 2rem;
     }
-    
+
     .giftee-name {
         font-size: 2rem;
     }
-    
+
     .gift-box {
         font-size: 3rem;
     }
-    
+
     .btn {
         padding: 14px 24px;
         font-size: 1rem;
