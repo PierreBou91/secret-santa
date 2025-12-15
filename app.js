@@ -321,10 +321,27 @@ function initMusicToggle() {
     const musicBtn = document.getElementById('music-toggle');
     const audio = document.getElementById('jingle');
     
+    // 🎵 Auto-play on first user interaction (click anywhere)
+    function startMusicOnFirstInteraction() {
+        audio.play().then(() => {
+            musicBtn.textContent = '🔊';
+            musicBtn.classList.add('playing');
+            console.log('🎵 Musique de Noël activée ! 🎄');
+        }).catch(() => {
+            console.log('🎵 Could not autoplay');
+        });
+        // Remove listeners after first interaction
+        document.removeEventListener('click', startMusicOnFirstInteraction);
+        document.removeEventListener('keydown', startMusicOnFirstInteraction);
+    }
+    
+    document.addEventListener('click', startMusicOnFirstInteraction);
+    document.addEventListener('keydown', startMusicOnFirstInteraction);
+    
+    // Toggle button still works normally
     musicBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play().catch(() => {
-                // L'utilisateur n'a pas encore interagi
                 console.log('🎵 Interaction utilisateur requise pour la musique');
             });
             musicBtn.textContent = '🔊';
