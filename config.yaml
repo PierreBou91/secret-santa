@@ -23,7 +23,13 @@ participants:
 # Example: [[Pierre, Olivia], [Gautier, Fanny]]
 # Each pair means neither person can give to or receive from the other
 exceptions: [
-  [Gautier, Dei]
+  [Gautier, Dei],
+  [Olivia, Gautier],
+  [Elzéar, Margaux],
+  [Ulysse, Margaux],
+  [Elzéar, Ulysse],
+  [Fanny, Olivier],
+  [Pierre, Anna]
 ]
 
 # Messages fun pour la révélation
